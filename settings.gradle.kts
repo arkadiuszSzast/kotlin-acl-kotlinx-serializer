@@ -1,1 +1,1 @@
-rootProject.name = "kotlin-acl"
+rootProject.name = "kotlin-acl-kotlinx-serialization"
