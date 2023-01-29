@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.szastarek"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -27,7 +27,7 @@ repositories {
 
 publishing {
     publications {
-        create<MavenPublication>("kotlin-acl") {
+        create<MavenPublication>("kotlin-acl-kotlinx-serializer") {
             from(components["kotlin"])
         }
     }
@@ -35,7 +35,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/arkadiuszSzast/acl")
+            url = uri("https://maven.pkg.github.com/arkadiuszSzast/kotlin-acl-kotlinx-serializer")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
