@@ -2,6 +2,7 @@ package com.szastarek.acl.authority
 
 import com.szastarek.acl.AccountContext
 import com.szastarek.acl.BelongsToAccount
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,6 +17,7 @@ sealed interface AclResourcePredicate<in T: AclResource> {
 }
 
 @Serializable
+@SerialName("AclResourceBelongsToAccountPredicate")
 class AclResourceBelongsToAccountPredicate<T> : AclResourcePredicate<T> where T: AclResource, T:  BelongsToAccount{
     override fun isSatisfiedBy(resource: T, accountContext: AccountContext): Boolean {
         return resource.accountId == accountContext.accountId

@@ -1,30 +1,41 @@
 package com.szastarek.acl.authority
 
 import com.szastarek.acl.Feature
+import kotlinx.serialization.SerialInfo
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Authority
 
 @Serializable
+@SerialName("FeatureAccessAuthority")
 data class FeatureAccessAuthority(val feature: Feature) : Authority
 
 @Serializable
+@SerialName("EntityAccessAuthority")
 data class EntityAccessAuthority<T : AclResource>(
     val aclResourceIdentifier: AclResourceIdentifier,
     val scopes: List<AuthorityScope<T>>
 ) : Authority
 
 @Serializable
+@SerialName("AllFeaturesAuthority")
 object AllFeaturesAuthority : Authority
 @Serializable
+@SerialName("ViewAllEntitiesAuthority")
 object ViewAllEntitiesAuthority : Authority
 @Serializable
+@SerialName("CreateAllEntitiesAuthority")
 object CreateAllEntitiesAuthority : Authority
+@Serializable
+@SerialName("UpdateAllEntitiesAuthority")
 object UpdateAllEntitiesAuthority : Authority
 @Serializable
+@SerialName("DeleteAllEntitiesAuthority")
 object DeleteAllEntitiesAuthority : Authority
 @Serializable
+@SerialName("ManageAllEntitiesAuthority")
 object ManageAllEntitiesAuthority : Authority
 
 fun List<Authority>.hasFeatureAuthority(feature: Feature): Boolean {
