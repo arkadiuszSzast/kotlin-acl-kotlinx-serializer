@@ -16,21 +16,21 @@ import com.szastarek.acl.authority.authorities
 object StaticAuthenticatedAccountProvider : AuthenticatedAccountProvider {
     override suspend fun currentPrincipal() = StaticRegularAccountContext
 
-    override fun getRoleAuthorities() = regularAccountAuthorities
+    override suspend fun getRoleAuthorities() = regularAccountAuthorities
 
-    override fun getCustomAuthorities() = customAuthorities
+    override suspend fun getCustomAuthorities() = customAuthorities
 
-    override fun getInjectedAuthorities() = injectedAuthorities
+    override suspend fun getInjectedAuthorities() = injectedAuthorities
 }
 
 object StaticSuperUserAuthenticatedAccountProvider : AuthenticatedAccountProvider {
     override suspend fun currentPrincipal() = StaticSuperUserAccountContext
 
-    override fun getRoleAuthorities() = emptyList<Authority>()
+    override suspend fun getRoleAuthorities() = emptyList<Authority>()
 
-    override fun getCustomAuthorities() = emptyList<Authority>()
+    override suspend fun getCustomAuthorities() = emptyList<Authority>()
 
-    override fun getInjectedAuthorities() = emptyList<Authority>()
+    override suspend fun getInjectedAuthorities() = emptyList<Authority>()
 }
 
 val regularAccountAccessibleFeature = Feature("regular-account-accessible-feature")
@@ -67,11 +67,13 @@ data class Mouse(val age: Int) : AclResource {
 object StaticRegularAccountContext : AccountContext {
     override val accountId = AccountId("account-1")
     override val role = RegularRole("user", regularAccountAuthorities)
+    override val customAuthorities: List<Authority> = emptyList()
 }
 
 object StaticSuperUserAccountContext : AccountContext {
     override val accountId = AccountId("super-user-account-1")
     override val role = SuperUserRole
+    override val customAuthorities: List<Authority> = emptyList()
 }
 
 val regularAccountAuthorities = authorities {

@@ -39,11 +39,15 @@ object DeleteAllEntitiesAuthority : Authority
 object ManageAllEntitiesAuthority : Authority
 
 fun List<Authority>.hasFeatureAuthority(feature: Feature): Boolean {
-    return this.filterIsInstance<FeatureAccessAuthority>().any { authority -> authority.feature == feature }
+    return this.hasAllFeaturesAccessAuthority() ||
+            this.filterIsInstance<FeatureAccessAuthority>().any { authority -> authority.feature == feature }
 }
 
 fun <T: AclResource> List<Authority>.filterEntityAccessAuthorities(): List<EntityAccessAuthority<T>> =
     this.filterIsInstance<EntityAccessAuthority<T>>()
+
+fun List<Authority>.hasAllFeaturesAccessAuthority(): Boolean =
+    any { authority -> authority is AllFeaturesAuthority }
 
 fun List<Authority>.hasReadAllEntitiesAuthority(): Boolean =
     any { authority -> authority is ViewAllEntitiesAuthority || authority is ManageAllEntitiesAuthority }

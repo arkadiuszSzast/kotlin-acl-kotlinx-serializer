@@ -1,3 +1,7 @@
 package com.szastarek.acl
 
-interface AccountContext : AccountIdProvider, HasRole
+import com.szastarek.acl.authority.Authority
+
+interface AccountContext : AccountIdProvider, HasRole {
+    val customAuthorities: List<Authority>
+}

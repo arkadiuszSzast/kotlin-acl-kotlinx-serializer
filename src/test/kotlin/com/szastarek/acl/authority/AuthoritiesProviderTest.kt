@@ -9,7 +9,7 @@ import strikt.assertions.containsExactlyInAnyOrder
 
 class AuthoritiesProviderTest : DescribeSpec({
     val authoritiesProvider = object : AuthoritiesProvider {
-        override fun getRoleAuthorities(): List<Authority> {
+        override suspend fun getRoleAuthorities(): List<Authority> {
             return authorities {
                 featureAccess(Feature("feature1"))
                 viewAllEntitiesAuthority()
@@ -20,7 +20,7 @@ class AuthoritiesProviderTest : DescribeSpec({
             }
         }
 
-        override fun getCustomAuthorities(): List<Authority> {
+        override suspend fun getCustomAuthorities(): List<Authority> {
             return authorities {
                 featureAccess(Feature("feature1"))
                 featureAccess(Feature("feature2"))
@@ -32,7 +32,7 @@ class AuthoritiesProviderTest : DescribeSpec({
             }
         }
 
-        override fun getInjectedAuthorities(): List<Authority> {
+        override suspend fun getInjectedAuthorities(): List<Authority> {
             return authorities {
                 featureAccess(Feature("feature3"))
                 entityAccess<Cat>(Cat.aclResourceIdentifier) {
